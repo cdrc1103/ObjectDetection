@@ -1,22 +1,23 @@
-from uuid import uuid4
-from pathlib import Path
+import os
 from enum import Enum
+from pathlib import Path
+from uuid import uuid4
 
 import cv2
 import uvicorn
-from fastapi import UploadFile, File, FastAPI
-import os
+from fastapi import FastAPI, File, UploadFile
 
-from src.backend.inference import process_image_byte_stream, detect_and_draw_box
+from src.backend.inference import detect_and_draw_box, process_image_byte_stream
 
 HOST = "0.0.0.0" if os.getenv("DOCKER-SETUP") else "127.0.0.1"
 PORT = 8000
 
-app = FastAPI(title='Object Detection')
+app = FastAPI(title="Object Detection")
 
 
 class Model(str, Enum):
     """List available models using Enum for convenience."""
+
     yolov3tiny = "yolov3-tiny"
     yolov3 = "yolov3"
 

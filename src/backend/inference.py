@@ -1,8 +1,8 @@
 import io
+
 import cv2
 import cvlib as cv
 import numpy as np
-
 from cvlib.object_detection import draw_bbox
 from fastapi import UploadFile
 
@@ -29,7 +29,9 @@ def detect_and_draw_box(image, model: str = "yolov3-tiny", confidence: float = 0
     """
 
     # Perform the object detection
-    bbox, label, conf = cv.detect_common_objects(image, confidence=confidence, model=model)
+    bbox, label, conf = cv.detect_common_objects(
+        image, confidence=confidence, model=model
+    )
 
     # Create a new image that includes the bounding boxes
     output_image = draw_bbox(image, bbox, label, conf)
