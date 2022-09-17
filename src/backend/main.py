@@ -15,13 +15,6 @@ PORT = 8000
 app = FastAPI(title="Object Detection")
 
 
-class Model(str, Enum):
-    """List available models using Enum for convenience."""
-
-    yolov3tiny = "yolov3-tiny"
-    yolov3 = "yolov3"
-
-
 @app.post("/predict")
 def prediction(model: str, file: UploadFile = File(...)) -> dict[str, str]:
     """
