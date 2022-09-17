@@ -1,5 +1,4 @@
 import os
-from enum import Enum
 from pathlib import Path
 from uuid import uuid4
 
@@ -7,7 +6,10 @@ import cv2
 import uvicorn
 from fastapi import FastAPI, File, UploadFile
 
-from src.backend.inference import detect_and_draw_box, process_image_byte_stream
+from src.backend.inference import (
+    detect_and_draw_box,
+    process_image_byte_stream,
+)
 
 HOST = "0.0.0.0" if os.getenv("DOCKER-SETUP") else "127.0.0.1"
 PORT = 8000
@@ -23,7 +25,9 @@ def prediction(model: str, file: UploadFile = File(...)) -> dict[str, str]:
     """
     input_image = process_image_byte_stream(file)
     output_image = detect_and_draw_box(input_image, model=model)
-    image_path = str(Path(__file__).parents[2] / "images_with_boxes" / f"{uuid4()}.jpg")
+    image_path = str(
+        Path(__file__).parents[2] / "images_with_boxes" / f"{uuid4()}.jpg"
+    )
     cv2.imwrite(image_path, output_image)
     return {"name": image_path}
 
