@@ -19,7 +19,9 @@ def process_image_byte_stream(file: UploadFile):
     return cv2.imdecode(file_bytes, cv2.IMREAD_COLOR)
 
 
-def detect_and_draw_box(image, model: str = "yolov3-tiny", confidence: float = 0.5):
+def detect_and_draw_box(
+    image, model: str = "yolov3-tiny", confidence: float = 0.5
+):
     """Detects common objects on an image and creates a new image with bounding boxes.
 
     Args:
